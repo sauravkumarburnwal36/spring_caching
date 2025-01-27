@@ -82,7 +82,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @CacheEvict(cacheNames =CACHE_NAME,key="#id")
     public void deleteEmployee(Long id) {
         log.info("Deleting employee with id: {}", id);
-        boolean exists = employeeRepository.existsById(id)if (!exists) {
+        boolean exists = employeeRepository.existsById(id);
+        if (!exists) {
             log.error("Employee not found with id: {}", id);
             throw new ResourceNotFoundException("Employee not found with id: " + id);
         }
