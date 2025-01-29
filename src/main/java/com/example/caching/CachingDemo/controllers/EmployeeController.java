@@ -2,7 +2,9 @@ package com.example.caching.CachingDemo.controllers;
 
 import com.example.caching.CachingDemo.dto.EmployeeDto;
 
+import com.example.caching.CachingDemo.entities.SalaryAccount;
 import com.example.caching.CachingDemo.services.EmployeeService;
+import com.example.caching.CachingDemo.services.SalaryAccountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class EmployeeController {
 
     private final EmployeeService employeeService;
+    private final SalaryAccountService salaryAccountService;
 
 
     @GetMapping("/{id}")
@@ -38,6 +41,12 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/incrementBalance/{accountId}")
+    public ResponseEntity<SalaryAccount> incrementBalance(@PathVariable Long accountId){
+        SalaryAccount salaryAccount=salaryAccountService.incrementBalance(accountId);
+        return ResponseEntity.ok(salaryAccount);
     }
 
 }
